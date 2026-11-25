@@ -135,6 +135,17 @@ Right-click a fence → **Fence properties…** to customize:
 改完点「确定」即生效，自动归位监听会用新规则重启。
 Changes apply immediately; the auto-sort watcher restarts with the new rules.
 
+> **规则什么时候起作用？**（When do the rules apply?）
+>
+> | 文件状态 State | 谁来收 Who collects it |
+> |---|---|
+> | 程序运行后**新落地**的文件 New files after the app is running | 按规则**自动收** ✅ Auto-collected |
+> | 程序启动前**已有**的文件 Files already on the desktop | **不会**追溯分类，需右键「整理桌面到围栏…」 Not retroactively sorted — use **Tidy desktop into fence…** |
+> | 类型不在规则里的文件 Files whose extension is not in the rules | **不会**碰 Never touched |
+>
+> 这是实测结论：归位监听只响应启动后的新事件。改规则不影响桌面上已有的文件。
+> Verified behaviour: the watcher only reacts to new events. Changing rules never reshuffles files already on the desktop.
+
 ### 删除围栏（Delete a fence）
 
 右键围栏 → **删除围栏…**，三个选项，**文件绝不静默丢失**：
