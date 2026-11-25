@@ -1,12 +1,27 @@
 <div align="center">
 
-# 桌面围栏 DesktopFences
+<img src="docs/logo.png" alt="DesktopFences" width="120">
 
-**把桌面上的文件按类型自动收进「围栏」面板，桌面只留干净的格子。**
-**Sort desktop files into fence panels by type — keep your desktop clean.**
+# 桌面围栏 · DesktopFences
+
+**一次整理，桌面清爽：**
+**把桌面文件按类型自动收进围栏面板，桌面只留干净的格子。**
+
+Sort desktop files into fence panels by type — keep your desktop clean.
+
+<br>
+
+[![release](https://img.shields.io/badge/release-v1.0.0-2b74d1?style=for-the-badge&logo=github&logoColor=white)](../../releases)
+[![platform](https://img.shields.io/badge/platform-Windows%2010%2F11%20x64-0078D6?style=for-the-badge&logo=windows&logoColor=white)]()
+[![size](https://img.shields.io/badge/size-0.48%20MB-3fb950?style=for-the-badge)]()
+[![language](https://img.shields.io/badge/language-Rust-DEA584?style=for-the-badge&logo=rust&logoColor=white)]()
+[![deps](https://img.shields.io/badge/dependencies-0-3fb950?style=for-the-badge)]()
+[![download](https://img.shields.io/badge/download-DesktopFences.exe-e3721b?style=for-the-badge&logo=windows&logoColor=white)](https://raw.githubusercontent.com/RZ-0410/desktop-fences/main/dist/DesktopFences.exe)
 
 零第三方依赖 · 单文件 0.48 MB · 拷贝即用
 Zero third-party dependencies · Single 0.48 MB exe · Just copy and run
+
+<br>
 
 [下载 Download](#-下载download) · [使用 Usage](#-使用说明usage) · [构建 Build](#-从源码构建build-from-source)
 
