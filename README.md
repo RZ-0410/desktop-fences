@@ -18,11 +18,23 @@ Zero third-party dependencies · Single 0.48 MB exe · Just copy and run
 
 ### 直接下载成品（Download the ready-made exe）
 
-1. 打开本仓库的 **[Releases](../../releases)** 页面
+**方式 A：从仓库直接下载（推荐，最快）**
+
+1. 打开 [`dist/DesktopFences.exe`](./dist/DesktopFences.exe)
+2. 点右上角 **Download raw file**（下载原始文件）
+
+**Method A: straight from the repo (fastest)** — open [`dist/DesktopFences.exe`](./dist/DesktopFences.exe) → click **Download raw file**.
+
+**方式 B：Releases 页面**
+
+1. 打开 **[Releases](../../releases)** 页面
 2. 在最新版本（Latest）下找到 `DesktopFences.exe`
 3. 点击下载
 
-Go to the **[Releases](../../releases)** page → download `DesktopFences.exe` from the latest release.
+**Method B: Releases page** — go to **[Releases](../../releases)** and download `DesktopFences.exe` from the latest release.
+
+> 两种方式拿到的是同一个文件。装了 Git 的话也可以：`git clone` 后直接用 `dist/DesktopFences.exe`。
+> Both paths give you the same file. With Git installed you can also just `git clone` and use `dist/DesktopFences.exe`.
 
 ### 在别的电脑上运行（Run on another PC）
 
