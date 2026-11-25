@@ -1,0 +1,16 @@
+# Windows x64 构建配置（可移植版，不含绝对路径）
+#
+# 在别的机器上编译的两个前提：
+#   1) rustup target add x86_64-pc-windows-gnu
+#   2) x86_64-w64-mingw32-gcc 在 PATH 里
+#      （MSYS2: pacman -S mingw-w64-x86_64-gcc；便携 mingw 则把它的 bin 目录加进 PATH）
+# 不想改 PATH 的话，把下面 linker/ar 换成绝对路径即可。
+
+[target.x86_64-pc-windows-gnu]
+# 静态链接 C 运行时：产物不依赖任何 mingw 附属 dll，换机器可直接运行
+rustflags = ["-C", "target-feature=+crt-static"]
+linker = "x86_64-w64-mingw32-gcc"
+ar = "x86_64-w64-mingw32-ar"
+
+[build]
+target = "x86_64-pc-windows-gnu"

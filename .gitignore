@@ -1,0 +1,18 @@
+# 构建产物
+/target/
+
+# 测试与截图（含本机用户名、桌面快照等隐私数据）
+/sandbox/
+/tools/
+*.log
+objdump*.txt
+*.png
+!app.ico
+
+# 本地机器相关的构建覆盖（下面这份 config.toml 是可移植版，
+# 如果你的 mingw 不在 PATH 里，可复制成 config.local.toml 写绝对路径）
+.cargo/config.local.toml
+
+# 编辑器
+.vscode/
+.idea/

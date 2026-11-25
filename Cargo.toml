@@ -1,0 +1,19 @@
+[package]
+name = "desktop-fences"
+version = "1.0.0"
+edition = "2021"
+description = "桌面围栏 - 零依赖 Windows 桌面分区收纳工具"
+build = "build.rs"
+
+[[bin]]
+name = "DesktopFences"
+path = "src/main.rs"
+
+[dependencies]
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+strip = true
+panic = "abort"
