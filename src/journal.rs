@@ -89,7 +89,7 @@ pub fn read_all() -> Vec<Entry> {
 }
 
 /// 路径比较键：统一反斜杠 + 小写。
-/// 不统一的话 "E:/a/b" 和 "E:////a////b" 会被当成两个文件（实测踩过）。
+/// 不统一的话 "C:/a/b" 和 "C:////a////b" 会被当成两个文件（实测踩过）。
 fn path_key(p: &Path) -> String {
     p.to_string_lossy().replace('/', "\\").to_lowercase()
 }

@@ -165,7 +165,7 @@ static mut TEST_ROOT: Option<PathBuf> = None;
 
 #[cfg(debug_assertions)]
 pub fn set_test_root(p: PathBuf) {
-    // 必须统一成反斜杠：SHGetFileInfoW 对 "E:/a\b" 这种混合分隔符返回 0，
+    // 必须统一成反斜杠：SHGetFileInfoW 对 "C:/a\b" 这种混合分隔符返回 0，
     // 图标会全部拿不到（实测踩过）。
     let norm = PathBuf::from(p.to_string_lossy().replace('/', "\\"));
     unsafe {

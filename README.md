@@ -196,8 +196,8 @@ cargo build --release
 To avoid depending on PATH, set absolute paths in `.cargo/config.toml`:
 
 ```toml
-linker = "D:/tools/mingw/mingw64/bin/x86_64-w64-mingw32-gcc.exe"
-ar = "D:/tools/mingw/mingw64/x86_64-w64-mingw32/bin/ar.exe"
+linker = "C:/path/to/mingw64/bin/x86_64-w64-mingw32-gcc.exe"
+ar = "C:/path/to/mingw64/x86_64-w64-mingw32/bin/ar.exe"
 ```
 
 ### 确认产物可移植（Verify portability）
