@@ -6,7 +6,8 @@
 /tools/
 *.log
 objdump*.txt
-*.png
+# 只忽略根目录下的临时截图，docs/ 里的正式图片照常提交
+/*.png
 !app.ico
 
 # 本地机器相关的构建覆盖（下面这份 config.toml 是可移植版，
