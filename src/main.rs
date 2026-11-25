@@ -9,6 +9,7 @@
 mod classify;
 mod config;
 mod drop;
+mod fence_dlg;
 mod fence_ui;
 mod gfx;
 mod i18n;
@@ -406,6 +407,13 @@ unsafe fn run() {
     );
 
     dlog("RUN 进入消息循环");
+    // 调试版：--props-test 打开第一个围栏的属性对话框，便于自动化验证
+    #[cfg(debug_assertions)]
+    if std::env::args().any(|a| a == "--props-test") {
+        edit_fence_props(app().fences.first().map(|f| f.hwnd).unwrap_or(std::ptr::null_mut()));
+        return;
+    }
+
     // 调试版：--delete-test 直接删掉第一个围栏（文件放回桌面），跳过对话框
     #[cfg(debug_assertions)]
     if std::env::args().any(|a| a == "--delete-test") {
@@ -659,6 +667,7 @@ pub unsafe fn show_fence_menu(hwnd: HWND, pt: POINT) {
     append(menu, 2007, i18n::t("tidy"), false);
     append(menu, 2003, i18n::t("new_fence"), false);
     append(menu, 2008, i18n::t("delete_fence"), false);
+    append(menu, 2009, i18n::t("fence_props"), false);
     append(menu, 2004, i18n::t("hide_all"), false);
     append_sep(menu);
     append(menu, 2005, i18n::t("exit_fence"), false);
@@ -695,6 +704,7 @@ pub unsafe fn show_fence_menu(hwnd: HWND, pt: POINT) {
         2007 => tidy_now(),
         2003 => new_fence(),
         2008 => delete_fence(hwnd),
+        2009 => edit_fence_props(hwnd),
         2004 => {
             app().hidden_all = true;
             for f in &app().fences {
@@ -1020,6 +1030,53 @@ unsafe fn start_watcher() {
     app().watcher = classify::start(desktop, rules, lnk, dirs, default_dir, dry, hctrl, batch);
 }
 
+/// 编辑围栏属性：名称、存放目录、写入的文件类型、列数。
+unsafe fn edit_fence_props(hwnd: HWND) {
+    let a = app();
+    let idx = match a.fences.iter().position(|f| f.hwnd == hwnd) {
+        Some(i) => i,
+        None => return,
+    };
+    let Some(cf) = a.cfg.fences.get(idx).cloned() else {
+        return;
+    };
+    let initial = fence_dlg::FenceProps {
+        name: cf.name.clone(),
+        dir: cf.dir.clone(),
+        rules: cf.rules.clone(),
+        cols: cf.cols,
+    };
+    let (hinst, owner) = (a.hinst, a.hctrl);
+    let Some(p) = fence_dlg::show(hinst, owner, initial) else {
+        return;
+    };
+    apply_fence_props(idx, p);
+}
+
+/// 把对话框结果落到围栏与配置上，并让监听用上新规则。
+unsafe fn apply_fence_props(idx: usize, p: fence_dlg::FenceProps) {
+    let a = app();
+    // 目录不存在就建出来，避免扫不到文件
+    let _ = std::fs::create_dir_all(&p.dir);
+    if let Some(f) = a.fences.get_mut(idx) {
+        f.cfg.name = p.name.clone();
+        f.cfg.dir = p.dir.clone();
+        f.cfg.rules = p.rules.clone();
+        f.cfg.cols = p.cols;
+        f.refresh();
+        f.redraw();
+    }
+    if let Some(c) = a.cfg.fences.get_mut(idx) {
+        c.name = p.name;
+        c.dir = p.dir;
+        c.rules = p.rules;
+        c.cols = p.cols;
+    }
+    let saved = a.cfg.save();
+    // 规则和目标目录都变了，必须重启监听
+    start_watcher();
+}
+
 unsafe fn new_fence() {
     let a = app();
     let mut n = 1;
@@ -1030,6 +1087,17 @@ unsafe fn new_fence() {
         }
         n += 1;
     };
+    let initial = fence_dlg::FenceProps {
+        dir: config::fences_root().join(&name),
+        rules: config::default_rules(),
+        cols: 4,
+        name,
+    };
+    let (hinst, owner) = (a.hinst, a.hctrl);
+    let Some(p) = fence_dlg::show(hinst, owner, initial) else {
+        return;
+    };
+
     let work = primary_work();
     let id = a.cfg.fences.iter().map(|f| f.id).max().unwrap_or(0) + 1;
     let dpi_now = fence_ui::default_dpi();
@@ -1037,21 +1105,21 @@ unsafe fn new_fence() {
     let h_ = fence_ui::dip_pub(252, dpi_now);
     let cf = FenceCfg {
         id,
-        name: name.clone(),
-        dir: config::fences_root().join(&name),
+        name: p.name.clone(),
+        dir: p.dir.clone(),
         x: work.left + (work.w() - w_) / 2,
         y: work.top + (work.h() - h_) / 2,
         w: w_,
         h: h_,
         h_expanded: h_,
-        cols: 4,
+        cols: p.cols,
         opacity: a.cfg.global.opacity,
         collapsed: false,
         sort: SortMode::Name,
         locked: false,
         snap: true,
         color: 0x2F3442,
-        rules: Vec::new(),
+        rules: p.rules,
     };
     let _ = std::fs::create_dir_all(&cf.dir);
     let hinst = a.hinst;
@@ -1064,11 +1132,10 @@ unsafe fn new_fence() {
             fence_ui::set_visible(f.hwnd, !a.hidden_all);
         }
         save_config();
+        start_watcher();
     }
 }
 
-/// 删除围栏。文件绝不静默丢失——弹三选一：
-/// 是＝文件放回桌面；否＝文件留在原目录；取消＝不删。
 unsafe fn delete_fence(hwnd: HWND) {
     let a = app();
     let idx = match a.fences.iter().position(|f| f.hwnd == hwnd) {

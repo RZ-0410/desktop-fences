@@ -76,7 +76,8 @@ Moving to another machine or user account is fine — stale paths in the config 
 
 1. 双击 `DesktopFences.exe` 启动，屏幕右侧出现一个围栏面板
 2. 新建一个 Word/PDF/图片到桌面，**1.4 秒内**它会自动移进围栏
-3. 想把已有的桌面文件也收进去：右键围栏 → **整理桌面到围栏…**
+3. 想换存放位置或改文件类型：右键围栏 → **围栏属性…**
+4. 想把已有的桌面文件也收进去：右键围栏 → **整理桌面到围栏…**
 4. 收错文件了：托盘图标 → **撤销上次整理**，整批还原
 
 Double-click `DesktopFences.exe` — a fence panel appears on the right. New files on the desktop are moved into it within 1.4 seconds. Right-click the fence → **Tidy desktop into fence…** to collect existing files. **Undo last tidy** restores the whole batch.
@@ -90,6 +91,7 @@ Double-click `DesktopFences.exe` — a fence panel appears on the right. New fil
 | 排列桌面图标 Arrange desktop icons | 放回原位置 Restore to original location |
 | 整理桌面到围栏… Tidy desktop into fence… | 移回桌面 Move to desktop |
 | 新建围栏 New fence | 删除到回收站 Delete to Recycle Bin |
+| **围栏属性… Fence properties…** | |
 | **删除围栏… Delete fence…** | |
 | 隐藏所有围栏 Hide all fences | |
 | 退出桌面围栏 Exit | |
@@ -111,6 +113,27 @@ Click **Search** on the title bar to filter by file name; press `Esc` to close.
 托盘 → **设置…**：界面语言（中文 / English）、开机自启、隐藏桌面图标、是否收纳文件夹。
 
 Tray → **Settings…**: language (中文 / English), autostart, hide desktop icons, collect folders.
+
+### 围栏属性：存放位置与文件类型（Fence properties: location & file types）
+
+右键围栏 → **围栏属性…**，可自定义三件事：
+Right-click a fence → **Fence properties…** to customize:
+
+| 项 Item | 说明 Meaning |
+|---|---|
+| 名称 Name | 围栏标题栏显示的名字 Panel title |
+| **存放目录 Location** | **分类后的文件放在哪里**——点「浏览…」任选一个目录 Where classified files go — pick any folder |
+| **写入的文件类型 File types** | **哪些扩展名会被收进来**——逗号分隔，如 `pdf,docx,png`；留空表示不自动收纳 Which extensions get collected — comma-separated; empty = no auto-collect |
+| 每行图标数 Columns | 面板每行放几个图标 Icons per row |
+
+新建围栏（右键 → **新建围栏**）走同一个对话框，从零指定目录和类型。
+**New fence** uses the same dialog, so you choose the folder and file types from the start.
+
+**示例**：只想让 PDF 和 Word 进「工作文档」围栏 → 文件类型填 `pdf,docx,doc`。
+**Example**: only PDFs and Word files into a “Work docs” fence → file types: `pdf,docx,doc`.
+
+改完点「确定」即生效，自动归位监听会用新规则重启。
+Changes apply immediately; the auto-sort watcher restarts with the new rules.
 
 ### 删除围栏（Delete a fence）
 
@@ -134,6 +157,8 @@ Right-click a fence → **Delete fence…**. Three choices — files are **never
 | 一次整理现有桌面，整批可撤销 | One-click tidy with full undo |
 | 单个文件放回原位置 | Restore a single file to where it came from |
 | 文件夹可选收纳，快捷方式永远留在桌面 | Optional folder collection; shortcuts always stay on the desktop |
+| **存放目录自选**：文件想分类到哪个文件夹都行 | **Custom location**: classify into any folder you choose |
+| **文件类型自定义**：指定哪些扩展名进围栏 | **Custom file types**: choose which extensions get collected |
 | 面板内搜索、拖拽、多围栏、折叠、锁定 | Search, drag & drop, multiple fences, collapse, lock |
 | 中英双语即时切换 | Bilingual UI, switch instantly |
 | 空闲零磁盘读写 | Zero disk I/O when idle |

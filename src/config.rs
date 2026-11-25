@@ -247,6 +247,16 @@ const DEFAULT_RULES: &[(&str, &str)] = &[(
 ///
 /// 注意：配置里存的是**物理像素**，所以默认尺寸必须按 DPI 放大，
 /// 否则 150% 缩放下列会挤不下。
+/// 新建围栏时预填的文件类型清单。
+pub fn default_rules() -> Vec<String> {
+    DEFAULT_RULES[0]
+        .1
+        .split(',')
+        .map(|x| x.trim().trim_start_matches('.').to_string())
+        .filter(|x| !x.is_empty())
+        .collect()
+}
+
 pub fn defaults(work: RECT, dpi: i32) -> Config {
     let s = |v: i32| ((v as f32) * dpi as f32 / 96.0).round() as i32;
     let panel_w = s(600);

@@ -89,6 +89,7 @@ pub fn t(key: &'static str) -> &'static str {
         "no_match" => tr("没有匹配的文件", "No matching files"),
 
         // ---- 删除围栏 ----
+        "fence_props" => tr("围栏属性…", "Fence properties…"),
         "delete_fence" => tr("删除围栏…", "Delete fence…"),
         "delete_fence_title" => tr("删除围栏", "Delete fence"),
         "delete_fence_files" => tr("里面有", "It contains"),

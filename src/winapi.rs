@@ -59,6 +59,18 @@ pub const HKEY_CURRENT_USER: HKEY = 0x8000_0001usize as HKEY;
 // ------------------------------------------------------------------ 结构体
 
 #[repr(C)]
+pub struct BROWSEINFOW {
+    pub hwndOwner: HWND,
+    pub pidlRoot: *const c_void,
+    pub pszDisplayName: LPWSTR,
+    pub lpszTitle: LPCWSTR,
+    pub ulFlags: UINT,
+    pub lpfn: *const c_void,
+    pub lParam: LPARAM,
+    pub iImage: i32,
+}
+
+#[repr(C)]
 #[derive(Clone, Copy, Default, PartialEq, Eq)]
 pub struct POINT {
     pub x: LONG,
@@ -381,6 +393,8 @@ pub const BM_SETCHECK: UINT = 0x00F1;
 pub const BST_CHECKED: WPARAM = 1;
 pub const BST_UNCHECKED: WPARAM = 0;
 pub const DEFAULT_GUI_FONT: i32 = 17;
+pub const BIF_RETURNONLYFSDIRS: UINT = 0x0000_0001;
+pub const CBN_SELCHANGE: i32 = 1;
 pub const COLOR_BTNFACE: i32 = 15;
 
 pub const WS_EX_TOPMOST: DWORD = 0x0000_0008;
@@ -676,6 +690,10 @@ unsafe extern "system" {
     pub fn SetFocus(hWnd: HWND) -> HWND;
     pub fn GetFocus() -> HWND;
     pub fn GetStockObject(i: i32) -> HGDIOBJ;
+
+    // 目录选择（SHBrowseForFolderW，Shell32）
+    pub fn SHBrowseForFolderW(lpbi: *const BROWSEINFOW) -> *const c_void;
+    pub fn SHGetPathFromIDListW(pidl: *const c_void, pszPath: LPWSTR) -> BOOL;
     pub fn GetParent(hWnd: HWND) -> HWND;
     pub fn UpdateLayeredWindow(
         hWnd: HWND,
