@@ -6,20 +6,22 @@
 
 **一次整理，桌面清爽：**
 **把桌面文件按类型自动收进围栏面板，桌面只留干净的格子。**
+**存放位置、文件类型，全都自己定。**
 
 Sort desktop files into fence panels by type — keep your desktop clean.
+Choose where they go and which file types get collected.
 
 <br>
 
 [![release](https://img.shields.io/badge/release-v1.0.0-2b74d1?style=for-the-badge&logo=github&logoColor=white)](../../releases)
 [![platform](https://img.shields.io/badge/platform-Windows%2010%2F11%20x64-0078D6?style=for-the-badge&logo=windows&logoColor=white)]()
-[![size](https://img.shields.io/badge/size-0.48%20MB-3fb950?style=for-the-badge)]()
+[![size](https://img.shields.io/badge/size-0.49%20MB%20%2F%20500%20KB-3fb950?style=for-the-badge)]()
 [![language](https://img.shields.io/badge/language-Rust-DEA584?style=for-the-badge&logo=rust&logoColor=white)]()
 [![deps](https://img.shields.io/badge/dependencies-0-3fb950?style=for-the-badge)]()
 [![download](https://img.shields.io/badge/download-DesktopFences.exe-e3721b?style=for-the-badge&logo=windows&logoColor=white)](https://raw.githubusercontent.com/RZ-0410/desktop-fences/main/dist/DesktopFences.exe)
 
-零第三方依赖 · 单文件 0.48 MB · 拷贝即用
-Zero third-party dependencies · Single 0.48 MB exe · Just copy and run
+零第三方依赖 · 单文件 0.49 MB · 拷贝即用
+Zero third-party dependencies · Single 0.49 MB exe · Just copy and run
 
 <br>
 
@@ -261,6 +263,7 @@ src/
   gfx.rs         分层窗口画布、圆角矩形、文字排版            layered-window canvas
   winapi.rs      零依赖 Win32 绑定（只声明用到的函数）       hand-written Win32 bindings
   i18n.rs        中英双语表（编进 exe）                      bilingual strings (compiled in)
+  fence_dlg.rs   围栏属性对话框：存放目录 + 文件类型          fence properties dialog
   settings_ui.rs 设置窗口                                    settings window
   tray.rs        托盘图标与菜单                              tray icon & menu
   drop.rs        文件拖入                                    file drag & drop
@@ -286,8 +289,8 @@ build.rs         嵌入图标与 manifest                         embed icon + m
 
 ## 💡 设计要点（Design Notes）
 
-**为什么零依赖？** 只用 Win32 API，不引任何 crate。好处是产物 0.48 MB、依赖面小、换机器不带运行时；代价是 `winapi.rs` 手写了约 1000 行声明。
-*Why zero dependencies?* Only Win32 API, no crates — small binary, tiny attack surface, no runtime to carry. The cost: ~1000 lines of hand-written bindings.
+**为什么零依赖？** 只用 Win32 API，不引任何 crate。好处是产物 0.49 MB、依赖面小、换机器不带运行时；代价是 `winapi.rs` 手写了 1026 行声明。
+*Why zero dependencies?* Only Win32 API, no crates — small binary, tiny attack surface, no runtime to carry. The cost: 1026 lines of hand-written bindings.
 
 **为什么是「移动」不是「复制」？** 同盘走 `rename`，只改目录项、不读写文件内容。跨盘时退化为「复制 + 删原件」，文件夹跨盘直接跳过。
 *Move, not copy:* same-volume `rename` touches only the directory entry. Cross-volume falls back to copy+delete; cross-volume folders are skipped.
