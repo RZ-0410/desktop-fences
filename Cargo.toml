@@ -1,6 +1,6 @@
 [package]
 name = "desktop-fences"
-version = "1.0.0"
+version = "1.0.1"
 edition = "2021"
 description = "桌面围栏 - 零依赖 Windows 桌面分区收纳工具"
 build = "build.rs"

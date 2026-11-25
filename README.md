@@ -13,7 +13,7 @@ Choose where they go and which file types get collected.
 
 <br>
 
-[![release](https://img.shields.io/badge/release-v1.0.0-2b74d1?style=for-the-badge&logo=github&logoColor=white)](../../releases)
+[![release](https://img.shields.io/badge/release-v1.0.1-2b74d1?style=for-the-badge&logo=github&logoColor=white)](../../releases)
 [![platform](https://img.shields.io/badge/platform-Windows%2010%2F11%20x64-0078D6?style=for-the-badge&logo=windows&logoColor=white)]()
 [![size](https://img.shields.io/badge/size-0.49%20MB%20%2F%20500%20KB-3fb950?style=for-the-badge)]()
 [![language](https://img.shields.io/badge/language-Rust-DEA584?style=for-the-badge&logo=rust&logoColor=white)]()
